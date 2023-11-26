@@ -61,8 +61,8 @@ def build_input_keys_response(langchain_object, artifacts):
 
 def get_new_key(dictionary, original_key):
     counter = 1
-    new_key = original_key + " (" + str(counter) + ")"
+    new_key = f"{original_key} ({counter})"
     while new_key in dictionary:
         counter += 1
-        new_key = original_key + " (" + str(counter) + ")"
+        new_key = f"{original_key} ({counter})"
     return new_key

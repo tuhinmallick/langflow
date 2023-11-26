@@ -300,9 +300,7 @@ def format_dict(
 def get_type_from_union_literal(union_literal: str) -> str:
     # if types are literal strings
     # the type is a string
-    if "Literal" in union_literal:
-        return "str"
-    return union_literal
+    return "str" if "Literal" in union_literal else union_literal
 
 
 def get_type(value: Any) -> Union[str, type]:

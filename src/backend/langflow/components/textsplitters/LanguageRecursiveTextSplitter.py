@@ -76,5 +76,4 @@ class LanguageRecursiveTextSplitterComponent(CustomComponent):
             chunk_overlap=chunk_overlap,
         )
 
-        docs = splitter.split_documents(documents)
-        return docs
+        return splitter.split_documents(documents)

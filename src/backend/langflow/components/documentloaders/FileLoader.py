@@ -189,24 +189,26 @@ class FileLoaderComponent(CustomComponent):
     def build(self, file_path: str, loader: str) -> Document:
         file_type = file_path.split(".")[-1]
 
-        # Mapeie o nome do loader selecionado para suas informações
-        selected_loader_info = None
-        for loader_info in loaders_info:
-            if loader_info["name"] == loader:
-                selected_loader_info = loader_info
-                break
-
+        selected_loader_info = next(
+            (
+                loader_info
+                for loader_info in loaders_info
+                if loader_info["name"] == loader
+            ),
+            None,
+        )
         if selected_loader_info is None and loader != "Automatic":
             raise ValueError(f"Loader {loader} not found in the loader info list")
 
         if loader == "Automatic":
-            # Determine o loader automaticamente com base na extensão do arquivo
-            default_loader_info = None
-            for info in loaders_info:
-                if "defaultFor" in info and file_type in info["defaultFor"]:
-                    default_loader_info = info
-                    break
-
+            default_loader_info = next(
+                (
+                    info
+                    for info in loaders_info
+                    if "defaultFor" in info and file_type in info["defaultFor"]
+                ),
+                None,
+            )
             if default_loader_info is None:
                 raise ValueError(f"No default loader found for file type: {file_type}")
 

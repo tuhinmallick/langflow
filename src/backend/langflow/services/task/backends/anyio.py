@@ -57,7 +57,7 @@ class AnyIOBackend(TaskBackend):
             try:
                 task_result = AnyIOTaskResult(tg)
                 tg.start_soon(task_result.run, task_func, *args, **kwargs)
-                task_id = str(id(task_result))
+                task_id = id(task_result)
                 self.tasks[task_id] = task_result
                 logger.info(f"Task {task_id} started.")
                 return task_id, task_result

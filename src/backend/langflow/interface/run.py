@@ -44,16 +44,13 @@ def get_memory_key(langchain_object):
     It then checks if the key exists in a dictionary of known memory keys and returns the corresponding key,
     or None if the current key is not recognized.
     """
+    if not hasattr(langchain_object.memory, "memory_key"):
+        return None  # or some other default value or action
     mem_key_dict = {
         "chat_history": "history",
         "history": "chat_history",
     }
-    # Check if memory_key attribute exists
-    if hasattr(langchain_object.memory, "memory_key"):
-        memory_key = langchain_object.memory.memory_key
-        return mem_key_dict.get(memory_key)
-    else:
-        return None  # or some other default value or action
+    return mem_key_dict.get(langchain_object.memory.memory_key)
 
 
 def update_memory_keys(langchain_object, possible_new_mem_key):

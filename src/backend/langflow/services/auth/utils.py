@@ -76,20 +76,19 @@ async def get_current_user(
 ) -> User:
     if token:
         return await get_current_user_by_jwt(token, db)
-    else:
-        if not query_param and not header_param:
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                detail="An API key must be passed as query or header",
-            )
-        user = await api_key_security(query_param, header_param, db)
-        if user:
-            return user
-
+    if not query_param and not header_param:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="Invalid or missing API key",
+            detail="An API key must be passed as query or header",
         )
+    user = await api_key_security(query_param, header_param, db)
+    if user:
+        return user
+
+    raise HTTPException(
+        status_code=status.HTTP_403_FORBIDDEN,
+        detail="Invalid or missing API key",
+    )
 
 
 async def get_current_user_by_jwt(

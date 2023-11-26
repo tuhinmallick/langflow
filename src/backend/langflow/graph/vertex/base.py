@@ -285,10 +285,6 @@ class Vertex:
             if result is not None:  # If result is ready
                 self._update_built_object_and_artifacts(result)
                 return self._built_object
-            else:
-                # Handle the case when the result is not ready (retry, throw exception, etc.)
-                pass
-
         # If there's no task_id, build the vertex locally
         self.build(user_id)
         return self._built_object

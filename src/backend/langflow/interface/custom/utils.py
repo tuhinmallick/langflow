@@ -17,5 +17,4 @@ def extract_union_types(return_type: str) -> list[str]:
     # If the return type is a Union, then we need to parse it
     return_type = return_type.replace("Union", "").replace("[", "").replace("]", "")
     return_types = return_type.split(",")
-    return_types = [item.strip() for item in return_types]
-    return return_types
+    return [item.strip() for item in return_types]
